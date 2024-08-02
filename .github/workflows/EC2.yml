@@ -48,7 +48,7 @@ jobs:
           uses: fifsky/ssh-action@master
           with:
             command: |
-              cd /home/ec2-user
+              sudo su
               export DBHOST=${{ secrets.DBHOST }}
               export DBUSER=${{ secrets.DBUSER }}
               export DBPASSWORD=${{ secrets.DBPASSWORD }}
