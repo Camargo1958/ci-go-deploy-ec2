@@ -32,10 +32,15 @@ jobs:
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             port: 22
             script: |
-              export HOST=${{ secrets.DBHOST }}
-              export USER=${{ secrets.DBUSER }}
-              export PASSWORD=${{ secrets.DBPASSWORD }}
+              echo ${{ secrets.DBHOST }}
+              export DBHOST=${{ secrets.DBHOST }}
+              echo ${{ secrets.DBUSER }}
+              export DBUSER=${{ secrets.DBUSER }}
+              echo ${{ secrets.DBPASSWORD }}
+              export DBPASSWORD=${{ secrets.DBPASSWORD }}
+              echo ${{ secrets.DBNAME }}
               export DBNAME=${{ secrets.DBNAME }}
+              echo ${{ secrets.DBPORT }}
               export DBPORT=${{ secrets.DBPORT }}
               export PORT=8000
               chmod +x main.go
