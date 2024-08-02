@@ -21,9 +21,9 @@ jobs:
       matrix:
         node_version: ['20']
         go_version: ['>=1.18'] # ['1.18', '1.17', '>=1.18']
-        os: ['ubuntu-20.04'] # ['ubuntu-latest', 'ubuntu-18.04', 'ubuntu-20.04']
+        os: ['ubuntu-latest'] # ['ubuntu-latest', 'ubuntu-18.04', 'ubuntu-20.04']
     steps:
-    - uses: actions/checkout@v4.1.7 # actions/checkout@v3
+    - uses: actions/checkout@v4 # actions/checkout@v3
 
     - name: Set up Go
       uses: actions/setup-go@v5.0.2 # actions/setup-go@v3
@@ -31,7 +31,7 @@ jobs:
         go-version: ${{ matrix.go_version }}
       
     - name: Build-DB
-      run: docker-compose build
+      run: docker compose build
       
     - name: Create-DB
       run: docker-compose up -d
@@ -44,7 +44,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4.1.7 #actions/checkout@v3
+    - uses: actions/checkout@v4 #actions/checkout@v3
     - name: Build
       run: go build -v main.go
       
