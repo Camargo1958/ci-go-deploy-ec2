@@ -8,3 +8,7 @@ Passos:
 4 - Modificação de db.go -> ConectaComBancoDeDados(): os.Getenv("PORT") para os.Getenv("DBPORT")
 5 - Modificação de go.yml -> PORT: 5432 para DBPORT: 5432
 6 - Modificação de Dockerfile -> PORT=5432 para DBPORT=5432
+7 - EC2-SSH>sudo su
+    EC2-SSH>yum update
+    EC2-SSH>yum install -y golang
+    EC2-SSH>Go version -> go version go1.21.0 windows/amd64
