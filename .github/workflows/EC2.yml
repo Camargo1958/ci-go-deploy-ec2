@@ -38,6 +38,7 @@ jobs:
             username: ${{ secrets.REMOTE_USER }}
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             port: 22
+            envs: DBHOST, DBUSER, DBPASSWORD, DBNAME, DBPORT, PORT
             script: |
               chmod +x main.go
               go run ./main.go > nohup.out 2> nohup.err < /dev/null &
