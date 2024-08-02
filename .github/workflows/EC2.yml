@@ -26,21 +26,27 @@ jobs:
 
         - name: executing remote ssh commands
           uses: appleboy/ssh-action@master
-          env:
-            DBHOST: "database-1.ch8ow8ueu6ov.us-east-1.rds.amazonaws.com" # ${{ secrets.DBHOST }}
-            DBUSER: "postgres" # ${{ secrets.DBUSER }}
-            DBPASSWORD: "postgres" # ${{ secrets.DBPASSWORD }}
-            DBNAME: "root" # ${{ secrets.DBNAME }}
-            DBPORT: 5432 # ${{ secrets.DBPORT }}
-            PORT: 8000
+          # env:
+          #   DBHOST: "database-1.ch8ow8ueu6ov.us-east-1.rds.amazonaws.com" # ${{ secrets.DBHOST }}
+          #   DBUSER: "postgres" # ${{ secrets.DBUSER }}
+          #   DBPASSWORD: "postgres" # ${{ secreDts.BPASSWORD }}
+          #   DBNAME: "root" # ${{ secrets.DBNAME }}
+          #   DBPORT: 5432 # ${{ secrets.DBPORT }}
+          #   PORT: 8000
           with:
             host: ${{ secrets.REMOTE_HOST }}
             username: ${{ secrets.REMOTE_USER }}
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             port: 22
-            envs: DBHOST, DBUSER, DBPASSWORD, DBNAME, DBPORT, PORT
+            #envs: DBHOST, DBUSER, DBPASSWORD, DBNAME, DBPORT, PORT
             script: |
+              export DBHOST="database-1.ch8ow8ueu6ov.us-east-1.rds.amazonaws.com"
               echo "DBHOST: $DBHOST"
+              export DBUSER="postgres"
+              export DBPASSWORD="postgres"
+              export DBNAME="root"
+              export DBPORT=5432
+              export PORT=8000
               echo "PORT: $PORT"
               chmod +x main.go
               go run ./main.go > nohup.out 2> nohup.err < /dev/null &
