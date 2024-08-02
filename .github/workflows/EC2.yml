@@ -27,11 +27,11 @@ jobs:
         - name: executing remote ssh commands
           uses: appleboy/ssh-action@master
           env:
-            DBHOST: ${{ secrets.DBHOST }}
-            DBUSER: ${{ secrets.DBUSER }}
-            DBPASSWORD: ${{ secrets.DBPASSWORD }}
-            DBNAME: ${{ secrets.DBNAME }}
-            DBPORT: ${{ secrets.DBPORT }}
+            DBHOST: "database-1.ch8ow8ueu6ov.us-east-1.rds.amazonaws.com" # ${{ secrets.DBHOST }}
+            DBUSER: "postgres" # ${{ secrets.DBUSER }}
+            DBPASSWORD: "postgres" # ${{ secrets.DBPASSWORD }}
+            DBNAME: "root" # ${{ secrets.DBNAME }}
+            DBPORT: 5432 # ${{ secrets.DBPORT }}
             PORT: 8000
           with:
             host: ${{ secrets.REMOTE_HOST }}
