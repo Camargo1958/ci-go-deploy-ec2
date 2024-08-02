@@ -25,39 +25,35 @@ jobs:
             EXCLUDE: "postgres-data"
 
         - name: executing remote ssh commands
-          # uses: appleboy/ssh-action@master
+          uses: appleboy/ssh-action@master
+          env:
+            DBHOST: ${{ secrets.DBHOST }}
+            DBUSER: ${{ secrets.DBUSER }}
+            DBPASSWORD: ${{ secrets.DBPASSWORD }}
+            DBNAME: ${{ secrets.DBNAME }}
+            DBPORT: ${{ secrets.DBPORT }}
+            PORT: 8000
+          with:
+            host: ${{ secrets.REMOTE_HOST }}
+            username: ${{ secrets.REMOTE_USER }}
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            port: 22
+            script: |
+              chmod +x main.go
+              go run ./main.go > nohup.out 2> nohup.err < /dev/null &
+
+          # uses: fifsky/ssh-action@master
           # with:
-          #   host: ${{ secrets.REMOTE_HOST }}
-          #   username: ${{ secrets.REMOTE_USER }}
-          #   key: ${{ secrets.SSH_PRIVATE_KEY }}
-          #   port: 22
-          #   script: |
-          #     echo ${{ secrets.DBHOST }}
-          #     export DBHOST=${{ secrets.DBHOST }}
-          #     echo ${{ secrets.DBUSER }}
+          #   command: |
+          #     sudo su
           #     export DBUSER=${{ secrets.DBUSER }}
-          #     echo ${{ secrets.DBPASSWORD }}
           #     export DBPASSWORD=${{ secrets.DBPASSWORD }}
-          #     echo ${{ secrets.DBNAME }}
           #     export DBNAME=${{ secrets.DBNAME }}
-          #     echo ${{ secrets.DBPORT }}
           #     export DBPORT=${{ secrets.DBPORT }}
           #     export PORT=8000
           #     chmod +x main.go
           #     go run ./main.go > nohup.out 2> nohup.err < /dev/null &
-          uses: fifsky/ssh-action@master
-          with:
-            command: |
-              sudo su
-              export DBHOST=${{ secrets.DBHOST }}
-              export DBUSER=${{ secrets.DBUSER }}
-              export DBPASSWORD=${{ secrets.DBPASSWORD }}
-              export DBNAME=${{ secrets.DBNAME }}
-              export DBPORT=${{ secrets.DBPORT }}
-              export PORT=8000
-              chmod +x main.go
-              go run ./main.go > nohup.out 2> nohup.err < /dev/null &
-            host: ${{ secrets.REMOTE_HOST }}
-            user: ${{ secrets.REMOTE_USER }}
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
+          #   host: ${{ secrets.REMOTE_HOST }}
+          #   user: ${{ secrets.REMOTE_USER }}
+          #   key: ${{ secrets.SSH_PRIVATE_KEY }}
 
